@@ -1,7 +1,6 @@
 name: Postman API
 
-on:
-  workflow_dispatch
+on: workflow_dispatch
 
 jobs:
   build-ubuntu:
@@ -18,14 +17,14 @@ jobs:
 
       - name: Check versions of Newman and Node
         run: |
-           newman --version
-           node --version
+          newman --version
+          node --version
 
       - name: Install Newman-Reporter-HtmlExtra
         run: sudo npm install -g newman-reporter-htmlextra
 
       - name: Execute collection
-        run: newman run Convergentes.postman_collection.json -g workspace.postman_globals.json -e Convergentes.postman_environment.json -r --delay-request 1 --reporters cli,htmlextra --reporter-htmlextra-export report.html
+        run: newman run Erp.postman_collection.json -g Erp_Globals.postman_globals.json -r --delay-request 1 --reporters cli,htmlextra --reporter-htmlextra-export report.html
 
       - name: Archive production artifacts
         if: ${{ always() }}
