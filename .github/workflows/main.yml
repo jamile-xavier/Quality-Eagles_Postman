@@ -24,7 +24,7 @@ jobs:
         run: sudo npm install -g newman-reporter-htmlextra
 
       - name: Execute collection
-        run: newman run Erp.postman_collection.json -g Erp_Globals.postman_globals.json -r --delay-request 1 --reporters cli,htmlextra --reporter-htmlextra-export report.html
+        run: newman run QualityEagles[Jamile].postman_collection.json -g workspace.postman_globals.json -r --delay-request 1 --reporters cli,htmlextra --reporter-htmlextra-export report.html
 
       - name: Archive production artifacts
         if: ${{ always() }}

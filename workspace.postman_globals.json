@@ -20,14 +20,14 @@
 			"enabled": true
 		},
 		{
-			"key": "UpdateCompanyOk",
-			"value": "Companhia atualizada com sucesso.",
+			"key": "MsgUpdateCompanyStatus",
+			"value": "Status da companhia atualizado com sucesso.",
 			"type": "default",
 			"enabled": true
 		},
 		{
 			"key": "BaseUrl",
-			"value": "https://quality-eagles.qacoders.dev.br/api",
+			"value": "https://quality-eagles.qacoders.dev.br/api/",
 			"type": "default",
 			"enabled": true
 		},
@@ -330,10 +330,28 @@
 			"value": "67aa8e00e8510a694b598167",
 			"type": "default",
 			"enabled": true
+		},
+		{
+			"key": "Rg",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "MsgUpdateCompanyAddress",
+			"value": "Endereço da companhia atualizado com sucesso.",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "MsgUpdateCompany",
+			"value": "Companhia atualizada com sucesso.",
+			"type": "default",
+			"enabled": true
 		}
 	],
 	"name": "Globals",
 	"_postman_variable_scope": "globals",
-	"_postman_exported_at": "2025-02-27T18:21:40.536Z",
-	"_postman_exported_using": "Postman/11.34.3"
+	"_postman_exported_at": "2025-04-05T20:45:31.427Z",
+	"_postman_exported_using": "Postman/11.39.5"
 }
