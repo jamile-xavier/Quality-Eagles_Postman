@@ -31,7 +31,7 @@ jobs:
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
-          name: Report API
+          name: postman-report
           path: report.html
 
   deploy:
