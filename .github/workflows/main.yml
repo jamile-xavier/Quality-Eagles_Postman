@@ -36,11 +36,10 @@ jobs:
 
   deploy:
     name: Deploy GitHub Pages 🌐
-    runs-on: ubuntu-24.04
-    if: always()
+    runs-on: ubuntu-latest
+    if: success()
     needs:
       - test
-
     permissions:
       contents: read
       pages: write
@@ -48,22 +47,18 @@ jobs:
     environment:
       name: github-pages
       url: https://jamile-xavier.github.io/Quality-Eagles_Postman/report.html
-
     steps:
       - name: Setup Pages
         uses: actions/configure-pages@v4
-
       - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
           name: postman-report
           path: results/
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: results/
-
       - name: Deploy to Github Pages
         id: deployment
         uses: actions/deploy-pages@v4
