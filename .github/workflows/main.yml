@@ -56,7 +56,7 @@ jobs:
       - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
-          name: robot-framework-front-report
+          name: postman-report
           path: results/
 
       - name: Upload artifact
