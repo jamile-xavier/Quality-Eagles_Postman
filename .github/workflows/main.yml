@@ -46,7 +46,7 @@ jobs:
       id-token: write
     environment:
       name: github-pages
-      url: https://jamile-xavier.github.io/Quality-Eagles_Postman/report.html
+      url: https://jamile-xavier.github.io/qualityeagles-academy13-api-postman/report.html
     steps:
       - name: Setup Pages
         uses: actions/configure-pages@v4
