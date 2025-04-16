@@ -3280,6 +3280,21 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{TokenUser}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -3292,18 +3307,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{BaseUrl}}/company?token={{TokenUser}}",
+							"raw": "{{BaseUrl}}/company",
 							"host": [
 								"{{BaseUrl}}"
 							],
 							"path": [
 								"company"
-							],
-							"query": [
-								{
-									"key": "token",
-									"value": "{{TokenUser}}"
-								}
 							]
 						}
 					},
@@ -3457,6 +3466,21 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{TokenUser}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -3469,18 +3493,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{BaseUrl}}/company?token={{TokenUser}}",
+							"raw": "{{BaseUrl}}/company",
 							"host": [
 								"{{BaseUrl}}"
 							],
 							"path": [
 								"company"
-							],
-							"query": [
-								{
-									"key": "token",
-									"value": "{{TokenUser}}"
-								}
 							]
 						}
 					},
@@ -3634,6 +3652,21 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{TokenUser}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -3646,18 +3679,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{BaseUrl}}/company?token={{TokenUser}}",
+							"raw": "{{BaseUrl}}/company",
 							"host": [
 								"{{BaseUrl}}"
 							],
 							"path": [
 								"company"
-							],
-							"query": [
-								{
-									"key": "token",
-									"value": "{{TokenUser}}"
-								}
 							]
 						}
 					},
@@ -3811,6 +3838,21 @@
 						}
 					],
 					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{TokenUser}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -3823,18 +3865,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{BaseUrl}}/company?token={{TokenUser}}",
+							"raw": "{{BaseUrl}}/company",
 							"host": [
 								"{{BaseUrl}}"
 							],
 							"path": [
 								"company"
-							],
-							"query": [
-								{
-									"key": "token",
-									"value": "{{TokenUser}}"
-								}
 							]
 						}
 					},

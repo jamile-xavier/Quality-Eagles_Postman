@@ -3,7 +3,7 @@
 ## Descrição do Projeto
 
 <h2 align="center">
-Teste API ERP
+Teste API ERP com Postman
 </h2>
 <p align="center"> Realização de testes de API do ERP disponibilizado pela Qa Coders para a equipe Quality Eagles T13. </p>
 <p align="center">Testes de endpoints: Login, Users e Company</p>
@@ -11,19 +11,17 @@ Teste API ERP
 <p align="center"> Utilização de variáveis globais para realização dos testes e criação de variáveis dinâmicas.</p>
 <p align="center">Para realização dos testes foi utilizado os casos de testes e critérios de aceites disponibilizados pela Qa Coders atravpes do Azure e também os endpoints disponibilizados através do Swagger.</p>
 <p align="center"> O Azure também foi utilizado para abertura das PBI´s, Test Plan Suite e Test Pan.</p>
-<p align="center"> Todos os testes aqui disponibilizados são testes que não apresentam bugs (exceto bugs de status code que são testes que não apresentam falha na execução porém ainda necessita de correção pelos Devs. Os testes que apresentaram falha na execução não foram adicionados por enquanto na collection.</p>
 
+### Sumário
 
-# Sumário
+- [Funcionalidades](#funcionalidades)
+- [Tecnologias](#tecnologias)
+- [Executando o projeto](#Executando-o-projeto)
+- [Autora](#autora)
+- [Equipe](#equipe)
+- [Licença](#licença)
 
-
-- 🛠 [Funcionalidades](#funcionalidades)
-- 💻 [Tecnologias](#tecnologias)
-- 💽 [Instalação](#instalação)
-- 👩 [Autora](#autora)
-- 📑 [Licença](#licença)
-
-# Funcionalidades
+### Funcionalidades
 
 - [x] Fazer login;
 - [x] Cadastrar usuário;
@@ -42,28 +40,24 @@ Teste API ERP
 - [x] Atualizar o status da empresa por id
 - [x] Excluir empresa;
 
-
-# Tecnologias
+### Tecnologias
 
 - [Postman](https://www.postman.com/)
 - [Swagger](https://swagger.io/)
 - [Azure](https://azure.microsoft.com/pt-br/)
 
+### Executando-o-projeto
 
-# Instalação
-
-Para utilizar o projeto em sua máquina será necessário possuir a seguinte ferramenta:
-[Postman](https://www.postman.com/)
-
-# Importando o projeto
+Passo a passo utilizando o Postman:
 
 - Salvar o projeto;
 - Abrir o postman;
 - Clicar em import;
--  Selecionar arquivos;
--  Abrir.
+- Selecionar arquivos;
+- Abrir.
+- É possível rodar cada teste individualmente ou utilizar a opção runner e executar o teste em massa.
 
-# Autora
+### Autora
 
 <p> Jamile Xavier Mendonça </p>
 
@@ -71,8 +65,16 @@ Para utilizar o projeto em sua máquina será necessário possuir a seguinte fer
 
 [Linkedin](https://www.linkedin.com/in/jamile-xavier/)
 
+### Equipe
 
-# Licença
+- Cristian (TechLead)
+- Carol
+- Italo
+- Iza
+- Jamile
+- Lucas
+- Tadeu
 
-Licença MIT
+### Licença
 
+MIT
