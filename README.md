@@ -69,7 +69,7 @@ Passo a passo utilizando o Postman:
 ### Equipe
 
 - Cristian (TechLead)
-- Carol
+- Caroline Uchida
 - Ítalo Mateus Costa
 - Jamile Xavier Mendonça
 - Lucas
