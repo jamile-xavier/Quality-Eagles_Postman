@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "a952578d-5994-41b8-83a6-1ef31b3d5e5a",
-		"name": "QualityEagles[Jamile]",
+		"_postman_id": "8dfce013-1982-44bf-a993-b7f124cd387b",
+		"name": "QualityEagles[Equipe]",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "23226959"
 	},
@@ -1995,6 +1995,66 @@
 					"response": []
 				},
 				{
+					"name": "Atualização de cadastro com e-mail inválido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 400', () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test('Validate message success', () => {\r",
+									"    pm.expect('O e-mail informado é inválido. Informe um e-mail no formato [nome@domínio.com].').to.equal(pm.response.json().error[0]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{TokenUser}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fullName\": \"Pedro Carvalho\",\r\n  \"mail\": \"pedrocarvalhoqacoders.com.br\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/user/{{UserId}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"user",
+								"{{UserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Atualização de senha por id com sucesso",
 					"event": [
 						{
@@ -3551,6 +3611,194 @@
 					"response": []
 				},
 				{
+					"name": "Cadastro de empresa com 101 caracteres no campo nome",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code is 400', () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test('property error returned', () => {\r",
+									"    pm.expect(pm.response.json()).to.have.property('error');\r",
+									"})\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function firstcorportename() {\r",
+									"    const names = ['Consultoria', 'Hospital', 'Telecomunicações', 'Eletrodomésticos', 'MKT', 'Mercado', 'Oficina', 'Comércio', 'Supermercado', 'Barbearia', 'Salão', 'Açai', 'Odontologia', 'Advocacia', 'Financeira', 'Banco', 'Bijouterias', 'RH', 'Construtura', 'Arquitetura', 'Engenharia', 'Decorações', 'Limpeza', 'Móveis', 'Educação', 'Universidade', 'Grupo', 'Serviços', 'Indústria', 'Bebidas', 'Hamburgueria', 'Sorveteria', 'Farmacêutica', 'Têxtil', 'Veículos', 'Eventos'];\r",
+									"    const randomName = names[Math.floor(Math.random() * names.length)]\r",
+									"    return randomName\r",
+									"}\r",
+									"pm.globals.set(\"FirstCorporateName\", firstcorportename())\r",
+									"\r",
+									"function lastcorportenamename() {\r",
+									"    const lastnames = ['Mineração', 'Spire', 'Oliveira', 'Souza', 'Rodrigues', 'Almeida', 'Lima', 'Ferreira', 'Prisma', 'Carvalho', 'Goncalves', 'Ribeiro', 'Costa', 'Araujo', 'Martins', 'Fernandes', 'Ursa', 'Apex', 'Vulpeculuca', 'B2S', 'Krr', 'Jt', 'Solstice', 'Polaris', 'Eclipse', 'KRO', 'KRC', 'Antares', 'AAS', 'Pinacle', 'Crescent', 'B2U', 'Universal', 'Lepus', 'Altair', 'Zenith', 'Titan', 'Cascade', 'Global'];\r",
+									"    const randomLastName = lastnames[Math.floor(Math.random() * lastnames.length)]\r",
+									"    return randomLastName\r",
+									"}\r",
+									"pm.globals.set(\"LastCorporateName\", lastcorportenamename())\r",
+									"pm.globals.set(\"FullCorporateName\", \r",
+									"    pm.globals.get(\"FirstCorporateName\") + \" \" + pm.globals.get(\"LastCorporateName\"))\r",
+									"\r",
+									"pm.globals.set(\"MailCorporate\", pm.globals.get(\"FullName\").toLowerCase().replace(/\\s/g, \"\").normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\")+\"_\"+ pm.variables.replaceIn('{{$guid}}') + '@atendimento.com.br')\r",
+									"\r",
+									"function firstresponsiblename() {\r",
+									"    const names = ['Alice', 'Miguel', 'Sophia', 'Arthur', 'Helena', 'Bernardo', 'Valentina', 'Heitor', 'Laura', 'Davi', 'Isabella', 'Lorenzo', 'Manuela', 'Theo', 'Luiza', 'Pedro', 'Giovanna', 'Gabriel', 'Julia'];\r",
+									"    const randomName = names[Math.floor(Math.random() * names.length)]\r",
+									"    return randomName\r",
+									"}\r",
+									"pm.globals.set(\"firstresponsiblename\", firstresponsiblename())\r",
+									"\r",
+									"function lastresponsiblename() {\r",
+									"    const lastnames = ['Silva', 'Santos', 'Oliveira', 'Souza', 'Rodrigues', 'Almeida', 'Lima', 'Ferreira', 'Pereira', 'Carvalho', 'Goncalves', 'Ribeiro', 'Costa', 'Araujo', 'Martins', 'Fernandes'];\r",
+									"    const randomLastName = lastnames[Math.floor(Math.random() * lastnames.length)]\r",
+									"    return randomLastName\r",
+									"}\r",
+									"pm.globals.set(\"lastresponsiblename\", lastresponsiblename())\r",
+									"pm.globals.set(\"ResponsibleName\", \r",
+									"    pm.globals.get(\"firstresponsiblename\") + \" \" + pm.globals.get(\"lastresponsiblename\"))\r",
+									"\r",
+									"function randomCnpj() {\r",
+									"    let randomCnpj = '';\r",
+									"    for (let i = 0; i < 14; i++) {\r",
+									"        randomCnpj += Math.floor(Math.random() * 10).toString();\r",
+									"    }\r",
+									"    return randomCnpj;\r",
+									"}\r",
+									"pm.globals.set(\"CNPJ\", randomCnpj());\r",
+									"\r",
+									"function randomTelephone() {\r",
+									"    let randomTelephone = '';\r",
+									"    for (let i = 0; i < 15; i++) {\r",
+									"        randomTelephone += Math.floor(Math.random() * 10).toString();\r",
+									"    }\r",
+									"    return randomTelephone;\r",
+									"}\r",
+									"pm.globals.set(\"Telephone\", randomTelephone());\r",
+									"\r",
+									"function randomCep() {\r",
+									"    let randomCep = '';\r",
+									"    for (let i = 0; i < 8; i++) {\r",
+									"        randomCep += Math.floor(Math.random() * 10).toString();\r",
+									"    }\r",
+									"    return randomCep;\r",
+									"}\r",
+									"pm.globals.set(\"Cep\", randomCep());\r",
+									"\r",
+									"function city() {\r",
+									"    const cityNames = ['Alta Floresta','Ariquemes','Cabixi','Cacoal','Cerejeiras','Colorado do Oeste', 'Corumbiara', 'Costa Marques', 'Espigao', 'Guajara', 'Jaru','Ji', 'Machadinho', 'Nova Brasilandia', 'Ouro Preto do Oeste','Pimenta Bueno', 'Porto Velho', 'Presidente Medici', 'Rio Crespo', 'Rolim de Moura', 'Santa Luzia', 'Vilhena', 'Sao Miguel do Guapore', 'Nova Mamore', 'Alvorada', 'Alto Alegre Dos Parecis', 'Alto Paraiso', 'Buritis', 'Novo Horizonte do Oeste', 'Cacaulandia', 'Sao Felipe', 'Sao Francisco do Guapore', 'Seringueiras', 'Teixeiropolis', 'Jordao'\r",
+									"];\r",
+									"    const randomCityName = cityNames[Math.floor(Math.random() * cityNames.length)]\r",
+									"    return randomCityName\r",
+									"}\r",
+									"pm.globals.set(\"City\", city())\r",
+									"\r",
+									"function state() {\r",
+									"    const stateNames = ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'SC', 'SE', 'SP', 'TO'\r",
+									"];\r",
+									"    const randomStateName = stateNames[Math.floor(Math.random() * stateNames.length)]\r",
+									"    return randomStateName\r",
+									"}\r",
+									"pm.globals.set(\"State\", state())\r",
+									"\r",
+									"function district() {\r",
+									"    const district = ['São Paulo', 'Rio de Janeiro', 'Belo Horizonte', 'Fortaleza', 'Brasília', 'Salvador', 'Curitiba', 'Manaus', 'Recife', 'Porto Alegre', 'Goiânia', 'Belém', 'Guarulhos', 'Campinas', 'São Luís', 'Maceió', 'Campo Grande', 'São Gonçalo', 'Teresina', 'João Pessoa'];\r",
+									"    const randomDistrict = district[Math.floor(Math.random() * district.length)]\r",
+									"    return randomDistrict\r",
+									"}\r",
+									"pm.globals.set(\"District\", district())\r",
+									"\r",
+									"\r",
+									"function firstnamestreet() {\r",
+									"    const namestreet = ['Rua', 'Avenida', 'Alameda', 'Boulevard'];\r",
+									"    const randomNameStreet = namestreet[Math.floor(Math.random() * namestreet.length)]\r",
+									"    return randomNameStreet\r",
+									"}\r",
+									"pm.globals.set(\"FirstNameStreet\", firstnamestreet())\r",
+									"\r",
+									"function lastnamestreet() {\r",
+									"    const lastnamesstreet = ['Flores', 'Brasil', 'Independência', 'César Frando', 'Odílio Padim', 'Almeida Bastos', 'Macedo Guimarães', 'Vagner Frances', 'Paulo Augusto', 'Sete de Setembro', 'Halfeld', 'Castelo Branco', 'Engenheiro Assis', 'Edgar de Oliveira', 'Jardim Amaro', 'Getúlio Vargas'];\r",
+									"    const randomLastNameStreet = lastnamesstreet[Math.floor(Math.random() * lastnamesstreet.length)]\r",
+									"    return randomLastNameStreet\r",
+									"}\r",
+									"pm.globals.set(\"LastNameStreet\", lastnamestreet())\r",
+									"pm.globals.set(\"Street\", \r",
+									"    pm.globals.get(\"FirstNameStreet\") + \" \" + pm.globals.get(\"LastNameStreet\"))\r",
+									"\r",
+									"// Gerar um número aleatório com 03 dígitos\r",
+									"var randomNumber = Math.floor(Math.random() * 900) + 100;\r",
+									" \r",
+									"// Converter para string\r",
+									"var randomStringNumber = randomNumber.toString();\r",
+									" \r",
+									"// Definir a variável de ambiente com o número gerado\r",
+									"pm.globals.set(\"Number\", randomStringNumber);\r",
+									"\r",
+									"function complement() {\r",
+									"    const complement = ['Loja 01', 'Loja 02', 'Loja 03', 'Loja 04'];\r",
+									"    const randomcomplement = complement[Math.floor(Math.random() * complement.length)]\r",
+									"    return randomcomplement\r",
+									"}\r",
+									"pm.globals.set(\"Complement\", complement())\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{TokenUser}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"corporateName\": \"Estfsfsdfsdfsdfwekkloeéumexemplodetextocontendoexatamentecentoeumcaracteressemespaçosextrasoucortedd!\",\r\n  \"registerCompany\": \"{{CNPJ}}\",\r\n  \"mail\": \"{{MailCorporate}}\",\r\n  \"matriz\": \"Teste\",\r\n  \"responsibleContact\": \"{{ResponsibleName}}\",\r\n  \"telephone\": \"{{Telephone}}\",\r\n  \"serviceDescription\": \"Testes\",\r\n  \"address\": [\r\n    {\r\n      \"zipCode\": \"{{Cep}}\",\r\n      \"city\": \"{{City}}\",\r\n      \"state\": \"{{State}}\",\r\n      \"district\": \"{{District}}\",\r\n      \"street\": \"{{Street}}\",\r\n      \"number\": \"{{Number}}\",\r\n      \"complement\": \"{{Complement}}\",\r\n      \"country\": \"Brasil\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/company/",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"company",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Cadastro de empresa sem CNPJ",
 					"event": [
 						{
@@ -3904,6 +4152,564 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"corporateName\": \"{{FullCorporateName}}\",\r\n  \"registerCompany\": \"{{CNPJ}}\",\r\n  \"mail\": \"\",\r\n  \"matriz\": \"Teste\",\r\n  \"responsibleContact\": \"{{ResponsibleName}}\",\r\n  \"telephone\": \"{{Telephone}}\",\r\n  \"serviceDescription\": \"Testes\",\r\n  \"address\": [\r\n    {\r\n      \"zipCode\": \"{{Cep}}\",\r\n      \"city\": \"{{City}}\",\r\n      \"state\": \"{{State}}\",\r\n      \"district\": \"{{District}}\",\r\n      \"street\": \"{{Street}}\",\r\n      \"number\": \"{{Number}}\",\r\n      \"complement\": \"{{Complement}}\",\r\n      \"country\": \"Brasil\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/company",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastro de empresa sem telefone",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Msg error is true\", function () {\r",
+									"  pm.expect(pm.response.json().error[0]).to.eql(\"O campo 'Telefone' é obrigatório.\");\r",
+									"})\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function firstcorportename() {\r",
+									"    const names = ['Consultoria', 'Hospital', 'Telecomunicações', 'Eletrodomésticos', 'MKT', 'Mercado', 'Oficina', 'Comércio', 'Supermercado', 'Barbearia', 'Salão', 'Açai', 'Odontologia', 'Advocacia', 'Financeira', 'Banco', 'Bijouterias', 'RH', 'Construtura', 'Arquitetura', 'Engenharia', 'Decorações', 'Limpeza', 'Móveis', 'Educação', 'Universidade', 'Grupo', 'Serviços', 'Indústria', 'Bebidas', 'Hamburgueria', 'Sorveteria', 'Farmacêutica', 'Têxtil', 'Veículos', 'Eventos'];\r",
+									"    const randomName = names[Math.floor(Math.random() * names.length)]\r",
+									"    return randomName\r",
+									"}\r",
+									"pm.globals.set(\"FirstCorporateName\", firstcorportename())\r",
+									"\r",
+									"function lastcorportenamename() {\r",
+									"    const lastnames = ['Mineração', 'Spire', 'Oliveira', 'Souza', 'Rodrigues', 'Almeida', 'Lima', 'Ferreira', 'Prisma', 'Carvalho', 'Goncalves', 'Ribeiro', 'Costa', 'Araujo', 'Martins', 'Fernandes', 'Ursa', 'Apex', 'Vulpeculuca', 'B2S', 'Krr', 'Jt', 'Solstice', 'Polaris', 'Eclipse', 'KRO', 'KRC', 'Antares', 'AAS', 'Pinacle', 'Crescent', 'B2U', 'Universal', 'Lepus', 'Altair', 'Zenith', 'Titan', 'Cascade', 'Global'];\r",
+									"    const randomLastName = lastnames[Math.floor(Math.random() * lastnames.length)]\r",
+									"    return randomLastName\r",
+									"}\r",
+									"pm.globals.set(\"LastCorporateName\", lastcorportenamename())\r",
+									"pm.globals.set(\"FullCorporateName\", \r",
+									"    pm.globals.get(\"FirstCorporateName\") + \" \" + pm.globals.get(\"LastCorporateName\"))\r",
+									"\r",
+									"pm.globals.set(\"MailCorporate\", pm.globals.get(\"FullName\").toLowerCase().replace(/\\s/g, \"\").normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\")+\"_\"+ pm.variables.replaceIn('{{$guid}}') + '@atendimento.com.br')\r",
+									"\r",
+									"function firstresponsiblename() {\r",
+									"    const names = ['Alice', 'Miguel', 'Sophia', 'Arthur', 'Helena', 'Bernardo', 'Valentina', 'Heitor', 'Laura', 'Davi', 'Isabella', 'Lorenzo', 'Manuela', 'Theo', 'Luiza', 'Pedro', 'Giovanna', 'Gabriel', 'Julia'];\r",
+									"    const randomName = names[Math.floor(Math.random() * names.length)]\r",
+									"    return randomName\r",
+									"}\r",
+									"pm.globals.set(\"firstresponsiblename\", firstresponsiblename())\r",
+									"\r",
+									"function lastresponsiblename() {\r",
+									"    const lastnames = ['Silva', 'Santos', 'Oliveira', 'Souza', 'Rodrigues', 'Almeida', 'Lima', 'Ferreira', 'Pereira', 'Carvalho', 'Goncalves', 'Ribeiro', 'Costa', 'Araujo', 'Martins', 'Fernandes'];\r",
+									"    const randomLastName = lastnames[Math.floor(Math.random() * lastnames.length)]\r",
+									"    return randomLastName\r",
+									"}\r",
+									"pm.globals.set(\"lastresponsiblename\", lastresponsiblename())\r",
+									"pm.globals.set(\"ResponsibleName\", \r",
+									"    pm.globals.get(\"firstresponsiblename\") + \" \" + pm.globals.get(\"lastresponsiblename\"))\r",
+									"\r",
+									"function randomCnpj() {\r",
+									"    let randomCnpj = '';\r",
+									"    for (let i = 0; i < 14; i++) {\r",
+									"        randomCnpj += Math.floor(Math.random() * 10).toString();\r",
+									"    }\r",
+									"    return randomCnpj;\r",
+									"}\r",
+									"pm.globals.set(\"CNPJ\", randomCnpj());\r",
+									"\r",
+									"function randomTelephone() {\r",
+									"    let randomTelephone = '';\r",
+									"    for (let i = 0; i < 15; i++) {\r",
+									"        randomTelephone += Math.floor(Math.random() * 10).toString();\r",
+									"    }\r",
+									"    return randomTelephone;\r",
+									"}\r",
+									"pm.globals.set(\"Telephone\", randomTelephone());\r",
+									"\r",
+									"function randomCep() {\r",
+									"    let randomCep = '';\r",
+									"    for (let i = 0; i < 8; i++) {\r",
+									"        randomCep += Math.floor(Math.random() * 10).toString();\r",
+									"    }\r",
+									"    return randomCep;\r",
+									"}\r",
+									"pm.globals.set(\"Cep\", randomCep());\r",
+									"\r",
+									"function city() {\r",
+									"    const cityNames = ['Alta Floresta','Ariquemes','Cabixi','Cacoal','Cerejeiras','Colorado do Oeste', 'Corumbiara', 'Costa Marques', 'Espigao', 'Guajara', 'Jaru','Ji', 'Machadinho', 'Nova Brasilandia', 'Ouro Preto do Oeste','Pimenta Bueno', 'Porto Velho', 'Presidente Medici', 'Rio Crespo', 'Rolim de Moura', 'Santa Luzia', 'Vilhena', 'Sao Miguel do Guapore', 'Nova Mamore', 'Alvorada', 'Alto Alegre Dos Parecis', 'Alto Paraiso', 'Buritis', 'Novo Horizonte do Oeste', 'Cacaulandia', 'Sao Felipe', 'Sao Francisco do Guapore', 'Seringueiras', 'Teixeiropolis', 'Jordao'\r",
+									"];\r",
+									"    const randomCityName = cityNames[Math.floor(Math.random() * cityNames.length)]\r",
+									"    return randomCityName\r",
+									"}\r",
+									"pm.globals.set(\"City\", city())\r",
+									"\r",
+									"function state() {\r",
+									"    const stateNames = ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'SC', 'SE', 'SP', 'TO'\r",
+									"];\r",
+									"    const randomStateName = stateNames[Math.floor(Math.random() * stateNames.length)]\r",
+									"    return randomStateName\r",
+									"}\r",
+									"pm.globals.set(\"State\", state())\r",
+									"\r",
+									"function district() {\r",
+									"    const district = ['São Paulo', 'Rio de Janeiro', 'Belo Horizonte', 'Fortaleza', 'Brasília', 'Salvador', 'Curitiba', 'Manaus', 'Recife', 'Porto Alegre', 'Goiânia', 'Belém', 'Guarulhos', 'Campinas', 'São Luís', 'Maceió', 'Campo Grande', 'São Gonçalo', 'Teresina', 'João Pessoa'];\r",
+									"    const randomDistrict = district[Math.floor(Math.random() * district.length)]\r",
+									"    return randomDistrict\r",
+									"}\r",
+									"pm.globals.set(\"District\", district())\r",
+									"\r",
+									"\r",
+									"function firstnamestreet() {\r",
+									"    const namestreet = ['Rua', 'Avenida', 'Alameda', 'Boulevard'];\r",
+									"    const randomNameStreet = namestreet[Math.floor(Math.random() * namestreet.length)]\r",
+									"    return randomNameStreet\r",
+									"}\r",
+									"pm.globals.set(\"FirstNameStreet\", firstnamestreet())\r",
+									"\r",
+									"function lastnamestreet() {\r",
+									"    const lastnamesstreet = ['Flores', 'Brasil', 'Independência', 'César Frando', 'Odílio Padim', 'Almeida Bastos', 'Macedo Guimarães', 'Vagner Frances', 'Paulo Augusto', 'Sete de Setembro', 'Halfeld', 'Castelo Branco', 'Engenheiro Assis', 'Edgar de Oliveira', 'Jardim Amaro', 'Getúlio Vargas'];\r",
+									"    const randomLastNameStreet = lastnamesstreet[Math.floor(Math.random() * lastnamesstreet.length)]\r",
+									"    return randomLastNameStreet\r",
+									"}\r",
+									"pm.globals.set(\"LastNameStreet\", lastnamestreet())\r",
+									"pm.globals.set(\"Street\", \r",
+									"    pm.globals.get(\"FirstNameStreet\") + \" \" + pm.globals.get(\"LastNameStreet\"))\r",
+									"\r",
+									"// Gerar um número aleatório com 03 dígitos\r",
+									"var randomNumber = Math.floor(Math.random() * 900) + 100;\r",
+									" \r",
+									"// Converter para string\r",
+									"var randomStringNumber = randomNumber.toString();\r",
+									" \r",
+									"// Definir a variável de ambiente com o número gerado\r",
+									"pm.globals.set(\"Number\", randomStringNumber);\r",
+									"\r",
+									"function complement() {\r",
+									"    const complement = ['Loja 01', 'Loja 02', 'Loja 03', 'Loja 04'];\r",
+									"    const randomcomplement = complement[Math.floor(Math.random() * complement.length)]\r",
+									"    return randomcomplement\r",
+									"}\r",
+									"pm.globals.set(\"Complement\", complement())"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{TokenUser}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"corporateName\": \"{{FullCorporateName}}\",\r\n  \"registerCompany\": \"{{CNPJ}}\",\r\n  \"mail\": \"{{MailCorporate}}\",\r\n  \"matriz\": \"Teste\",\r\n  \"responsibleContact\": \"{{ResponsibleName}}\",\r\n  \"telephone\": \"\",\r\n  \"serviceDescription\": \"Testes\",\r\n  \"address\": [\r\n    {\r\n      \"zipCode\": \"{{Cep}}\",\r\n      \"city\": \"{{City}}\",\r\n      \"state\": \"{{State}}\",\r\n      \"district\": \"{{District}}\",\r\n      \"street\": \"{{Street}}\",\r\n      \"number\": \"{{Number}}\",\r\n      \"complement\": \"{{Complement}}\",\r\n      \"country\": \"Brasil\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/company",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastro de empresa com telefone com mais caracteres do que o permitido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code is 400\", () => {\r",
+									"    pm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Valid msg error\", function () {\r",
+									"  pm.expect(pm.response.json().error[0]).to.eql(\"O campo 'Telefone' deve ter 15 números para telefone nacional e 20 números para telefone internacional.\"\r",
+									"    );\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function firstcorportename() {\r",
+									"    const names = ['Consultoria', 'Hospital', 'Telecomunicações', 'Eletrodomésticos', 'MKT', 'Mercado', 'Oficina', 'Comércio', 'Supermercado', 'Barbearia', 'Salão', 'Açai', 'Odontologia', 'Advocacia', 'Financeira', 'Banco', 'Bijouterias', 'RH', 'Construtura', 'Arquitetura', 'Engenharia', 'Decorações', 'Limpeza', 'Móveis', 'Educação', 'Universidade', 'Grupo', 'Serviços', 'Indústria', 'Bebidas', 'Hamburgueria', 'Sorveteria', 'Farmacêutica', 'Têxtil', 'Veículos', 'Eventos'];\r",
+									"    const randomName = names[Math.floor(Math.random() * names.length)]\r",
+									"    return randomName\r",
+									"}\r",
+									"pm.globals.set(\"FirstCorporateName\", firstcorportename())\r",
+									"\r",
+									"function lastcorportenamename() {\r",
+									"    const lastnames = ['Mineração', 'Spire', 'Oliveira', 'Souza', 'Rodrigues', 'Almeida', 'Lima', 'Ferreira', 'Prisma', 'Carvalho', 'Goncalves', 'Ribeiro', 'Costa', 'Araujo', 'Martins', 'Fernandes', 'Ursa', 'Apex', 'Vulpeculuca', 'B2S', 'Krr', 'Jt', 'Solstice', 'Polaris', 'Eclipse', 'KRO', 'KRC', 'Antares', 'AAS', 'Pinacle', 'Crescent', 'B2U', 'Universal', 'Lepus', 'Altair', 'Zenith', 'Titan', 'Cascade', 'Global'];\r",
+									"    const randomLastName = lastnames[Math.floor(Math.random() * lastnames.length)]\r",
+									"    return randomLastName\r",
+									"}\r",
+									"pm.globals.set(\"LastCorporateName\", lastcorportenamename())\r",
+									"pm.globals.set(\"FullCorporateName\", \r",
+									"    pm.globals.get(\"FirstCorporateName\") + \" \" + pm.globals.get(\"LastCorporateName\"))\r",
+									"\r",
+									"pm.globals.set(\"MailCorporate\", pm.globals.get(\"FullName\").toLowerCase().replace(/\\s/g, \"\").normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\")+\"_\"+ pm.variables.replaceIn('{{$guid}}') + '@atendimento.com.br')\r",
+									"\r",
+									"function firstresponsiblename() {\r",
+									"    const names = ['Alice', 'Miguel', 'Sophia', 'Arthur', 'Helena', 'Bernardo', 'Valentina', 'Heitor', 'Laura', 'Davi', 'Isabella', 'Lorenzo', 'Manuela', 'Theo', 'Luiza', 'Pedro', 'Giovanna', 'Gabriel', 'Julia'];\r",
+									"    const randomName = names[Math.floor(Math.random() * names.length)]\r",
+									"    return randomName\r",
+									"}\r",
+									"pm.globals.set(\"firstresponsiblename\", firstresponsiblename())\r",
+									"\r",
+									"function lastresponsiblename() {\r",
+									"    const lastnames = ['Silva', 'Santos', 'Oliveira', 'Souza', 'Rodrigues', 'Almeida', 'Lima', 'Ferreira', 'Pereira', 'Carvalho', 'Goncalves', 'Ribeiro', 'Costa', 'Araujo', 'Martins', 'Fernandes'];\r",
+									"    const randomLastName = lastnames[Math.floor(Math.random() * lastnames.length)]\r",
+									"    return randomLastName\r",
+									"}\r",
+									"pm.globals.set(\"lastresponsiblename\", lastresponsiblename())\r",
+									"pm.globals.set(\"ResponsibleName\", \r",
+									"    pm.globals.get(\"firstresponsiblename\") + \" \" + pm.globals.get(\"lastresponsiblename\"))\r",
+									"\r",
+									"function randomCnpj() {\r",
+									"    let randomCnpj = '';\r",
+									"    for (let i = 0; i < 14; i++) {\r",
+									"        randomCnpj += Math.floor(Math.random() * 10).toString();\r",
+									"    }\r",
+									"    return randomCnpj;\r",
+									"}\r",
+									"pm.globals.set(\"CNPJ\", randomCnpj());\r",
+									"\r",
+									"function randomTelephone() {\r",
+									"    let randomTelephone = '';\r",
+									"    for (let i = 0; i < 15; i++) {\r",
+									"        randomTelephone += Math.floor(Math.random() * 10).toString();\r",
+									"    }\r",
+									"    return randomTelephone;\r",
+									"}\r",
+									"pm.globals.set(\"Telephone\", randomTelephone());\r",
+									"\r",
+									"function randomCep() {\r",
+									"    let randomCep = '';\r",
+									"    for (let i = 0; i < 8; i++) {\r",
+									"        randomCep += Math.floor(Math.random() * 10).toString();\r",
+									"    }\r",
+									"    return randomCep;\r",
+									"}\r",
+									"pm.globals.set(\"Cep\", randomCep());\r",
+									"\r",
+									"function city() {\r",
+									"    const cityNames = ['Alta Floresta','Ariquemes','Cabixi','Cacoal','Cerejeiras','Colorado do Oeste', 'Corumbiara', 'Costa Marques', 'Espigao', 'Guajara', 'Jaru','Ji', 'Machadinho', 'Nova Brasilandia', 'Ouro Preto do Oeste','Pimenta Bueno', 'Porto Velho', 'Presidente Medici', 'Rio Crespo', 'Rolim de Moura', 'Santa Luzia', 'Vilhena', 'Sao Miguel do Guapore', 'Nova Mamore', 'Alvorada', 'Alto Alegre Dos Parecis', 'Alto Paraiso', 'Buritis', 'Novo Horizonte do Oeste', 'Cacaulandia', 'Sao Felipe', 'Sao Francisco do Guapore', 'Seringueiras', 'Teixeiropolis', 'Jordao'\r",
+									"];\r",
+									"    const randomCityName = cityNames[Math.floor(Math.random() * cityNames.length)]\r",
+									"    return randomCityName\r",
+									"}\r",
+									"pm.globals.set(\"City\", city())\r",
+									"\r",
+									"function state() {\r",
+									"    const stateNames = ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'SC', 'SE', 'SP', 'TO'\r",
+									"];\r",
+									"    const randomStateName = stateNames[Math.floor(Math.random() * stateNames.length)]\r",
+									"    return randomStateName\r",
+									"}\r",
+									"pm.globals.set(\"State\", state())\r",
+									"\r",
+									"function district() {\r",
+									"    const district = ['São Paulo', 'Rio de Janeiro', 'Belo Horizonte', 'Fortaleza', 'Brasília', 'Salvador', 'Curitiba', 'Manaus', 'Recife', 'Porto Alegre', 'Goiânia', 'Belém', 'Guarulhos', 'Campinas', 'São Luís', 'Maceió', 'Campo Grande', 'São Gonçalo', 'Teresina', 'João Pessoa'];\r",
+									"    const randomDistrict = district[Math.floor(Math.random() * district.length)]\r",
+									"    return randomDistrict\r",
+									"}\r",
+									"pm.globals.set(\"District\", district())\r",
+									"\r",
+									"\r",
+									"function firstnamestreet() {\r",
+									"    const namestreet = ['Rua', 'Avenida', 'Alameda', 'Boulevard'];\r",
+									"    const randomNameStreet = namestreet[Math.floor(Math.random() * namestreet.length)]\r",
+									"    return randomNameStreet\r",
+									"}\r",
+									"pm.globals.set(\"FirstNameStreet\", firstnamestreet())\r",
+									"\r",
+									"function lastnamestreet() {\r",
+									"    const lastnamesstreet = ['Flores', 'Brasil', 'Independência', 'César Frando', 'Odílio Padim', 'Almeida Bastos', 'Macedo Guimarães', 'Vagner Frances', 'Paulo Augusto', 'Sete de Setembro', 'Halfeld', 'Castelo Branco', 'Engenheiro Assis', 'Edgar de Oliveira', 'Jardim Amaro', 'Getúlio Vargas'];\r",
+									"    const randomLastNameStreet = lastnamesstreet[Math.floor(Math.random() * lastnamesstreet.length)]\r",
+									"    return randomLastNameStreet\r",
+									"}\r",
+									"pm.globals.set(\"LastNameStreet\", lastnamestreet())\r",
+									"pm.globals.set(\"Street\", \r",
+									"    pm.globals.get(\"FirstNameStreet\") + \" \" + pm.globals.get(\"LastNameStreet\"))\r",
+									"\r",
+									"// Gerar um número aleatório com 03 dígitos\r",
+									"var randomNumber = Math.floor(Math.random() * 900) + 100;\r",
+									" \r",
+									"// Converter para string\r",
+									"var randomStringNumber = randomNumber.toString();\r",
+									" \r",
+									"// Definir a variável de ambiente com o número gerado\r",
+									"pm.globals.set(\"Number\", randomStringNumber);\r",
+									"\r",
+									"function complement() {\r",
+									"    const complement = ['Loja 01', 'Loja 02', 'Loja 03', 'Loja 04'];\r",
+									"    const randomcomplement = complement[Math.floor(Math.random() * complement.length)]\r",
+									"    return randomcomplement\r",
+									"}\r",
+									"pm.globals.set(\"Complement\", complement())\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{TokenUser}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"corporateName\": \"{{FullCorporateName}}\",\r\n  \"registerCompany\": \"{{CNPJ}}\",\r\n  \"mail\": \"{{MailCorporate}}\",\r\n  \"matriz\": \"Teste\",\r\n  \"responsibleContact\": \"{{ResponsibleName}}\",\r\n  \"telephone\": \"{{TelephoneCompanyMais}}\",\r\n  \"serviceDescription\": \"Testes\",\r\n  \"address\": [\r\n    {\r\n      \"zipCode\": \"{{Cep}}\",\r\n      \"city\": \"{{City}}\",\r\n      \"state\": \"{{State}}\",\r\n      \"district\": \"{{District}}\",\r\n      \"street\": \"{{Street}}\",\r\n      \"number\": \"{{Number}}\",\r\n      \"complement\": \"{{Complement}}\",\r\n      \"country\": \"Brasil\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/company",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"company"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cadastro de empresa com telefone com menos caracteres do que o permitido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code is 400\", () => {\r",
+									"    pm.response.to.have.status(400)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Valid msg error\", function () {\r",
+									"  pm.expect(pm.response.json().error[0]).to.eql(\"O campo 'Telefone' deve ter 15 números para telefone nacional e 20 números para telefone internacional.\"\r",
+									"    );\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"function firstcorportename() {\r",
+									"    const names = ['Consultoria', 'Hospital', 'Telecomunicações', 'Eletrodomésticos', 'MKT', 'Mercado', 'Oficina', 'Comércio', 'Supermercado', 'Barbearia', 'Salão', 'Açai', 'Odontologia', 'Advocacia', 'Financeira', 'Banco', 'Bijouterias', 'RH', 'Construtura', 'Arquitetura', 'Engenharia', 'Decorações', 'Limpeza', 'Móveis', 'Educação', 'Universidade', 'Grupo', 'Serviços', 'Indústria', 'Bebidas', 'Hamburgueria', 'Sorveteria', 'Farmacêutica', 'Têxtil', 'Veículos', 'Eventos'];\r",
+									"    const randomName = names[Math.floor(Math.random() * names.length)]\r",
+									"    return randomName\r",
+									"}\r",
+									"pm.globals.set(\"FirstCorporateName\", firstcorportename())\r",
+									"\r",
+									"function lastcorportenamename() {\r",
+									"    const lastnames = ['Mineração', 'Spire', 'Oliveira', 'Souza', 'Rodrigues', 'Almeida', 'Lima', 'Ferreira', 'Prisma', 'Carvalho', 'Goncalves', 'Ribeiro', 'Costa', 'Araujo', 'Martins', 'Fernandes', 'Ursa', 'Apex', 'Vulpeculuca', 'B2S', 'Krr', 'Jt', 'Solstice', 'Polaris', 'Eclipse', 'KRO', 'KRC', 'Antares', 'AAS', 'Pinacle', 'Crescent', 'B2U', 'Universal', 'Lepus', 'Altair', 'Zenith', 'Titan', 'Cascade', 'Global'];\r",
+									"    const randomLastName = lastnames[Math.floor(Math.random() * lastnames.length)]\r",
+									"    return randomLastName\r",
+									"}\r",
+									"pm.globals.set(\"LastCorporateName\", lastcorportenamename())\r",
+									"pm.globals.set(\"FullCorporateName\", \r",
+									"    pm.globals.get(\"FirstCorporateName\") + \" \" + pm.globals.get(\"LastCorporateName\"))\r",
+									"\r",
+									"pm.globals.set(\"MailCorporate\", pm.globals.get(\"FullName\").toLowerCase().replace(/\\s/g, \"\").normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\")+\"_\"+ pm.variables.replaceIn('{{$guid}}') + '@atendimento.com.br')\r",
+									"\r",
+									"function firstresponsiblename() {\r",
+									"    const names = ['Alice', 'Miguel', 'Sophia', 'Arthur', 'Helena', 'Bernardo', 'Valentina', 'Heitor', 'Laura', 'Davi', 'Isabella', 'Lorenzo', 'Manuela', 'Theo', 'Luiza', 'Pedro', 'Giovanna', 'Gabriel', 'Julia'];\r",
+									"    const randomName = names[Math.floor(Math.random() * names.length)]\r",
+									"    return randomName\r",
+									"}\r",
+									"pm.globals.set(\"firstresponsiblename\", firstresponsiblename())\r",
+									"\r",
+									"function lastresponsiblename() {\r",
+									"    const lastnames = ['Silva', 'Santos', 'Oliveira', 'Souza', 'Rodrigues', 'Almeida', 'Lima', 'Ferreira', 'Pereira', 'Carvalho', 'Goncalves', 'Ribeiro', 'Costa', 'Araujo', 'Martins', 'Fernandes'];\r",
+									"    const randomLastName = lastnames[Math.floor(Math.random() * lastnames.length)]\r",
+									"    return randomLastName\r",
+									"}\r",
+									"pm.globals.set(\"lastresponsiblename\", lastresponsiblename())\r",
+									"pm.globals.set(\"ResponsibleName\", \r",
+									"    pm.globals.get(\"firstresponsiblename\") + \" \" + pm.globals.get(\"lastresponsiblename\"))\r",
+									"\r",
+									"function randomCnpj() {\r",
+									"    let randomCnpj = '';\r",
+									"    for (let i = 0; i < 14; i++) {\r",
+									"        randomCnpj += Math.floor(Math.random() * 10).toString();\r",
+									"    }\r",
+									"    return randomCnpj;\r",
+									"}\r",
+									"pm.globals.set(\"CNPJ\", randomCnpj());\r",
+									"\r",
+									"function randomTelephone() {\r",
+									"    let randomTelephone = '';\r",
+									"    for (let i = 0; i < 15; i++) {\r",
+									"        randomTelephone += Math.floor(Math.random() * 10).toString();\r",
+									"    }\r",
+									"    return randomTelephone;\r",
+									"}\r",
+									"pm.globals.set(\"Telephone\", randomTelephone());\r",
+									"\r",
+									"function randomCep() {\r",
+									"    let randomCep = '';\r",
+									"    for (let i = 0; i < 8; i++) {\r",
+									"        randomCep += Math.floor(Math.random() * 10).toString();\r",
+									"    }\r",
+									"    return randomCep;\r",
+									"}\r",
+									"pm.globals.set(\"Cep\", randomCep());\r",
+									"\r",
+									"function city() {\r",
+									"    const cityNames = ['Alta Floresta','Ariquemes','Cabixi','Cacoal','Cerejeiras','Colorado do Oeste', 'Corumbiara', 'Costa Marques', 'Espigao', 'Guajara', 'Jaru','Ji', 'Machadinho', 'Nova Brasilandia', 'Ouro Preto do Oeste','Pimenta Bueno', 'Porto Velho', 'Presidente Medici', 'Rio Crespo', 'Rolim de Moura', 'Santa Luzia', 'Vilhena', 'Sao Miguel do Guapore', 'Nova Mamore', 'Alvorada', 'Alto Alegre Dos Parecis', 'Alto Paraiso', 'Buritis', 'Novo Horizonte do Oeste', 'Cacaulandia', 'Sao Felipe', 'Sao Francisco do Guapore', 'Seringueiras', 'Teixeiropolis', 'Jordao'\r",
+									"];\r",
+									"    const randomCityName = cityNames[Math.floor(Math.random() * cityNames.length)]\r",
+									"    return randomCityName\r",
+									"}\r",
+									"pm.globals.set(\"City\", city())\r",
+									"\r",
+									"function state() {\r",
+									"    const stateNames = ['AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS', 'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'SC', 'SE', 'SP', 'TO'\r",
+									"];\r",
+									"    const randomStateName = stateNames[Math.floor(Math.random() * stateNames.length)]\r",
+									"    return randomStateName\r",
+									"}\r",
+									"pm.globals.set(\"State\", state())\r",
+									"\r",
+									"function district() {\r",
+									"    const district = ['São Paulo', 'Rio de Janeiro', 'Belo Horizonte', 'Fortaleza', 'Brasília', 'Salvador', 'Curitiba', 'Manaus', 'Recife', 'Porto Alegre', 'Goiânia', 'Belém', 'Guarulhos', 'Campinas', 'São Luís', 'Maceió', 'Campo Grande', 'São Gonçalo', 'Teresina', 'João Pessoa'];\r",
+									"    const randomDistrict = district[Math.floor(Math.random() * district.length)]\r",
+									"    return randomDistrict\r",
+									"}\r",
+									"pm.globals.set(\"District\", district())\r",
+									"\r",
+									"\r",
+									"function firstnamestreet() {\r",
+									"    const namestreet = ['Rua', 'Avenida', 'Alameda', 'Boulevard'];\r",
+									"    const randomNameStreet = namestreet[Math.floor(Math.random() * namestreet.length)]\r",
+									"    return randomNameStreet\r",
+									"}\r",
+									"pm.globals.set(\"FirstNameStreet\", firstnamestreet())\r",
+									"\r",
+									"function lastnamestreet() {\r",
+									"    const lastnamesstreet = ['Flores', 'Brasil', 'Independência', 'César Frando', 'Odílio Padim', 'Almeida Bastos', 'Macedo Guimarães', 'Vagner Frances', 'Paulo Augusto', 'Sete de Setembro', 'Halfeld', 'Castelo Branco', 'Engenheiro Assis', 'Edgar de Oliveira', 'Jardim Amaro', 'Getúlio Vargas'];\r",
+									"    const randomLastNameStreet = lastnamesstreet[Math.floor(Math.random() * lastnamesstreet.length)]\r",
+									"    return randomLastNameStreet\r",
+									"}\r",
+									"pm.globals.set(\"LastNameStreet\", lastnamestreet())\r",
+									"pm.globals.set(\"Street\", \r",
+									"    pm.globals.get(\"FirstNameStreet\") + \" \" + pm.globals.get(\"LastNameStreet\"))\r",
+									"\r",
+									"// Gerar um número aleatório com 03 dígitos\r",
+									"var randomNumber = Math.floor(Math.random() * 900) + 100;\r",
+									" \r",
+									"// Converter para string\r",
+									"var randomStringNumber = randomNumber.toString();\r",
+									" \r",
+									"// Definir a variável de ambiente com o número gerado\r",
+									"pm.globals.set(\"Number\", randomStringNumber);\r",
+									"\r",
+									"function complement() {\r",
+									"    const complement = ['Loja 01', 'Loja 02', 'Loja 03', 'Loja 04'];\r",
+									"    const randomcomplement = complement[Math.floor(Math.random() * complement.length)]\r",
+									"    return randomcomplement\r",
+									"}\r",
+									"pm.globals.set(\"Complement\", complement())\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{TokenUser}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"corporateName\": \"{{FullCorporateName}}\",\r\n  \"registerCompany\": \"{{CNPJ}}\",\r\n  \"mail\": \"{{MailCorporate}}\",\r\n  \"matriz\": \"Teste\",\r\n  \"responsibleContact\": \"{{ResponsibleName}}\",\r\n  \"telephone\": \"{{TelephoneCompanyMenos}}\",\r\n  \"serviceDescription\": \"Testes\",\r\n  \"address\": [\r\n    {\r\n      \"zipCode\": \"{{Cep}}\",\r\n      \"city\": \"{{City}}\",\r\n      \"state\": \"{{State}}\",\r\n      \"district\": \"{{District}}\",\r\n      \"street\": \"{{Street}}\",\r\n      \"number\": \"{{Number}}\",\r\n      \"complement\": \"{{Complement}}\",\r\n      \"country\": \"Brasil\"\r\n    }\r\n  ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4421,7 +5227,7 @@
 					"response": []
 				},
 				{
-					"name": "Atualizar empresa por id com sucesso",
+					"name": "Atualizar empresa por id com sucesso - Responsavel",
 					"event": [
 						{
 							"listen": "test",
@@ -4517,6 +5323,98 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"corporateName\": \"{{FullCorporateName}}\",\r\n  \"registerCompany\": \"{{CNPJ}}\",\r\n  \"mail\": \"{{MailCorporate}}\",\r\n  \"matriz\": \"Teste\",\r\n  \"responsibleContact\": \"{{ResponsibleNameEdit}}\",\r\n  \"telephone\": \"{{Telephone}}\",\r\n  \"serviceDescription\": \"Testes\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/company/{{CompanyId}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"company",
+								"{{CompanyId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar empresa por id com sucesso - Telefone",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status Code is 200\", () => {\r",
+									"    pm.response.to.have.status(200)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Check msg is true\", () => {\r",
+									"    pm.expect(pm.globals.get(\"MsgUpdateCompany\")).to.equal(pm.response.json().msg)\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Valid Id\", function () {\r",
+									"  pm.expect(pm.response.json().updatedCompany._id).to.exist;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Valid Corporate name\", function () {\r",
+									"  pm.expect(pm.response.json().updatedCompany.corporateName).to.eql(pm.globals.get(\"FullCorporateName\"));\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Valid Phone Company\", function () {\r",
+									"  pm.expect(pm.response.json().updatedCompany.telephone).to.eql(pm.globals.get(\"TelephoneEdit\"));\r",
+									"})\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"    function randomTelephoneEdit() {\r",
+									"    let randomTelephone = '';\r",
+									"    for (let i = 0; i < 15; i++) {\r",
+									"        randomTelephone += Math.floor(Math.random() * 10).toString();\r",
+									"    }\r",
+									"    return randomTelephone;\r",
+									"}\r",
+									"pm.globals.set(\"TelephoneEdit\", randomTelephoneEdit());"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{TokenUser}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"corporateName\": \"{{FullCorporateName}}\",\r\n  \"registerCompany\": \"{{CNPJ}}\",\r\n  \"mail\": \"{{MailCorporate}}\",\r\n  \"matriz\": \"Teste\",\r\n  \"responsibleContact\": \"{{ResponsibleName}}\",\r\n  \"telephone\": \"{{TelephoneEdit}}\",\r\n  \"serviceDescription\": \"Testes\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5051,6 +5949,223 @@
 					"response": []
 				},
 				{
+					"name": "Atualizar endereço da Empresa com campos obrigatórios em branco",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code is 400', () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test('error message exist', () => {\r",
+									"    pm.expect(pm.response.json()).to.have.property('error');\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{TokenUser}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"address\": [\r\n    {\r\n      \"zipCode\": \"\",\r\n      \"city\": \"\",\r\n      \"state\": \"\",\r\n      \"district\": \"\",\r\n      \"street\": \"\",\r\n      \"number\": \"\",\r\n      \"complement\": \"\",\r\n      \"country\": \"\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/company/address/{{CompanyId}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"company",
+								"address",
+								"{{CompanyId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar endereço da Empresa sem informar campos obrigatórios",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code is 400', () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test('error message exist', () => {\r",
+									"    pm.expect(pm.response.json()).to.have.property('error');\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{TokenUser}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"address\": [\r\n    {\r\n      \"complement\": \"\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/company/address/{{CompanyId}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"company",
+								"address",
+								"{{CompanyId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar endereço da Empresa com campo número tendo mais caracteres que o limite definido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code is 400', () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});\r",
+									"\r",
+									"pm.test('error message exist', () => {\r",
+									"    pm.expect(pm.response.json()).to.have.property('error');\r",
+									"});\r",
+									"\r",
+									"pm.test('validate message response', () => {\r",
+									"    pm.expect(\"O campo 'número' deve possuir no máximo 10 caracteres.\").to.be.equals(pm.response.json().error[0]);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{TokenUser}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"address\": [\r\n    {\r\n      \"zipCode\": \"65062700\",\r\n      \"city\": \"Blumenau\",\r\n      \"state\": \"SC\",\r\n      \"district\": \"Teste\",\r\n      \"street\": \"Rua Teste\",\r\n      \"number\": \"11122233344\",\r\n      \"complement\": \"\",\r\n      \"country\": \"Brasil\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/company/address/{{CompanyId}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"company",
+								"address",
+								"{{CompanyId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Atualizar endereço da empresa por id sem o CEP",
 					"event": [
 						{
@@ -5450,6 +6565,73 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n  \"status\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/company/status/{{CompanyId}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"company",
+								"status",
+								"{{CompanyId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar status da empresa com status não fornecido",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('status code is 400', () => {\r",
+									"    pm.response.to.have.status(400);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{TokenUser}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"status\":\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

@@ -354,10 +354,124 @@
 			"value": "\"Failed to authenticate token.\"",
 			"type": "default",
 			"enabled": true
+		},
+		{
+			"key": "TelephoneCompanyMais",
+			"value": "4569875325698741523658",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "CorporateName",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "RegisterCompany",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "MailCompany",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "MatrisCompany",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ResponsibleContac",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "TelephoneCompany",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ServiceDescriptio",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ZipCodeCompany",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "CityCompany",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "StateCompany",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "DistrictcCompany",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "StreeCompany",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "NumberCompany",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "ComplementCompany",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "CountryCompany",
+			"value": "",
+			"type": "any",
+			"enabled": true
+		},
+		{
+			"key": "TelephoneCompanyMenos",
+			"value": "4536987",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "PaisNumeros",
+			"value": "55",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "TelephoneEdit",
+			"value": "",
+			"type": "any",
+			"enabled": true
 		}
 	],
 	"name": "Globals",
 	"_postman_variable_scope": "globals",
-	"_postman_exported_at": "2025-04-23T01:34:57.911Z",
+	"_postman_exported_at": "2025-04-23T02:30:23.664Z",
 	"_postman_exported_using": "Postman/11.42.1"
 }

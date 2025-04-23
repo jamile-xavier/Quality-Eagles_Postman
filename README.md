@@ -69,11 +69,11 @@ Passo a passo utilizando o Postman:
 
 - Cristian (TechLead)
 - Carol
-- Italo
-- Iza
-- Jamile
+- Ítalo Mateus Costa
+- Jamile Xavier Mendonça
 - Lucas
-- Tadeu
+- Sônia Izabel Wicki
+- Tadeu Augusto Dutra Pinto
 
 ### Licença
 
