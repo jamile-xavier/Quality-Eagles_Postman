@@ -1869,7 +1869,79 @@
 					"response": []
 				},
 				{
-					"name": "Atualização de cadastro sem nome completo",
+					"name": "Atualização de cadastro com fullName em branco",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Verify Msg error\", function () {\r",
+									"  pm.expect(pm.response.json().error).to.eql(\"O campo nome completo é obrigatório.\");\r",
+									"})\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.globals.set(\"MailUserEdit\", pm.globals.get(\"FullName\").toLowerCase().replace(/\\s/g, \"\").normalize(\"NFD\").replace(/[\\u0300-\\u036f]/g, \"\") +\"_\"+ pm.variables.replaceIn('{{$guid}}')+ '@qacoders.com.br')"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "value",
+									"value": "{{TokenUser}}",
+									"type": "string"
+								},
+								{
+									"key": "key",
+									"value": "Authorization",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"fullName\": \"\",\r\n  \"mail\": \"{{MailUserEdit}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BaseUrl}}/user/{{UserId}}",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"user",
+								"{{UserId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualização de cadastro sem nome completo - utilizando primeiro nome",
 					"event": [
 						{
 							"listen": "test",
