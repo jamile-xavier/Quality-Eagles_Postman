@@ -26,6 +26,11 @@
 									"    pm.expect(\"Olá Qa-Coders-SYSADMIN, autenticação autorizada com sucesso!\").to.equal(pm.response.json().msg)\r",
 									"})\r",
 									"\r",
+									"pm.test(\"Valid Id User\", function () {\r",
+									"  pm.expect(pm.response.json().user._id).to.exist;\r",
+									"})\r",
+									"\r",
+									"\r",
 									"pm.test(\"Verify token is valid\", () => {\r",
 									"    pm.expect(pm.response.json().token).to.exist;\r",
 									"})\r",
@@ -84,7 +89,7 @@
 									"pm.response.to.have.status(400))\r",
 									"\r",
 									"pm.test(\"Check Password is true\", () => {\r",
-									"    pm.expect(pm.globals.get(\"MsgPasswordRequired\")).to.equal(pm.response.json().password)\r",
+									"    pm.expect(pm.globals.get(\"MsgPasswordRequired\")).to.eql(pm.response.json().password)\r",
 									"})"
 								],
 								"type": "text/javascript",
@@ -94,8 +99,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"packages": {},
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -399,6 +407,11 @@
 									"    pm.expect(\"Olá Qa-Coders-SYSADMIN, autenticação autorizada com sucesso!\").to.equal(pm.response.json().msg)\r",
 									"})\r",
 									"\r",
+									"pm.test(\"Valid Id User\", function () {\r",
+									"  pm.expect(pm.response.json().user._id).to.exist;\r",
+									"})\r",
+									"\r",
+									"\r",
 									"pm.test(\"Verify token is valid\", () => {\r",
 									"    pm.expect(pm.response.json().token).to.exist;\r",
 									"})\r",
@@ -525,7 +538,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Id User\", function () {\r",
-									"  pm.expect(pm.response.json().user._id);\r",
+									"  pm.expect(pm.response.json().user._id).to.exist;\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Valid FullName\", function () {\r",
@@ -598,6 +611,11 @@
 									"    pm.response.to.have.status(200)\r",
 									"})\r",
 									"\r",
+									"pm.test(\"Valid Id User\", function () {\r",
+									"  pm.expect(pm.response.json().user._id).to.exist;\r",
+									"})\r",
+									"\r",
+									"\r",
 									"pm.test(\"Verify token is valid\", () => {\r",
 									"    pm.expect(pm.response.json().token).to.exist;\r",
 									"})\r",
@@ -613,8 +631,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"packages": {},
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -719,7 +740,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Id User\", function () {\r",
-									"    pm.expect(pm.response.json().user._id);\r",
+									"    pm.expect(pm.response.json().user._id).to.exist;;\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Valid FullName\", function () {\r",
@@ -792,11 +813,13 @@
 									"    pm.response.to.have.status(400);\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().error);\r",
+									"pm.test(\"Verify to have msg error\", function () {\r",
+									"    pm.expect(pm.response.json()).to.have.property('error');\r",
 									"})\r",
 									"\r",
-									"\r",
+									"pm.test(\"Verify msg error\", function () {\r",
+									"    pm.expect(pm.response.json().error[0]).to.eql(\"O nome completo deve ter no máximo 100 caracteres.\")\r",
+									"})\r",
 									"\r",
 									""
 								],
@@ -915,7 +938,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().error);\r",
+									"    pm.expect(pm.response.json().error[0]).to.eql(\"Senha precisa ter: uma letra maiúscula, uma letra minúscula, um número, um caractere especial(@#$%) e tamanho entre 8-12.\");\r",
 									"})\r",
 									"\r",
 									"\r",
@@ -1036,7 +1059,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().error);\r",
+									"    pm.expect(pm.response.json().error[0]).to.eql(\"O e-mail informado é inválido. Informe um e-mail no formato [nome@domínio.com].\");\r",
 									"})\r",
 									"\r",
 									"\r",
@@ -1157,7 +1180,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().error);\r",
+									"    pm.expect(pm.response.json().error[0]).to.eql(\"O campo CPF é obrigatório!\");\r",
 									"})\r",
 									"\r",
 									"\r",
@@ -1333,6 +1356,9 @@
 									"    pm.expect(pm.response.json().token).to.not.exist;\r",
 									"})\r",
 									"\r",
+									"pm.test(\"Verify msg error\"), () => {\r",
+									"    pm.expect(pm.response.json().errors).to.equal(pm.globals.get(\"MsgFailedToken\"))\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
@@ -1386,7 +1412,9 @@
 									"    pm.expect(pm.response.json().token).to.not.exist;\r",
 									"})\r",
 									"\r",
-									""
+									"pm.test(\"Verify msg error\"), () => {\r",
+									"    pm.expect(pm.response.json().errors).to.equal(pm.globals.get(\"MsgFailedToken\"))\r",
+									"}"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -1436,15 +1464,15 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Id\", function () {\r",
-									"  pm.expect(pm.response.json()._id);\r",
+									"  pm.expect(pm.response.json()[0]).to.have.property('_id');\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Corporate name\", function () {\r",
-									"  pm.expect(pm.response.json().fullName);\r",
+									"  pm.expect(pm.response.json()[0].fullName).to.exist;\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Register Company\", function () {\r",
-									"  pm.expect(pm.response.json().cpf);\r",
+									"  pm.expect(pm.response.json()[0].cpf).to.exist;\r",
 									"})\r",
 									""
 								],
@@ -1494,11 +1522,9 @@
 									"    pm.response.to.have.status(403);\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().errors);\r",
-									"})\r",
-									"\r",
-									"\r",
+									"pm.test(\"Verify msg error\"), () => {\r",
+									"    pm.expect(pm.response.json().errors).to.equal(pm.globals.get(\"MsgFailedToken\"))\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
@@ -1547,11 +1573,9 @@
 									"    pm.response.to.have.status(403);\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().errors);\r",
-									"})\r",
-									"\r",
-									"\r",
+									"pm.test(\"Verify msg error\"), () => {\r",
+									"    pm.expect(pm.response.json().errors).to.equal(pm.globals.get(\"MsgFailedToken\"))\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
@@ -1601,13 +1625,20 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify ID User\", () => {\r",
-									"    pm.expect(pm.globals.set(\"UserId\", pm.response.json()._id))\r",
+									"    pm.expect(pm.response.json()._id).to.equal(pm.globals.get(\"UserId\"));\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Valid FullName\", function () {\r",
-									"  pm.expect(pm.response.json().fullName);\r",
+									"  pm.expect(pm.response.json().fullName).to.exist;\r",
 									"})\r",
 									"\r",
+									"pm.test(\"Valid Mail\", function () {\r",
+									"  pm.expect(pm.response.json().mail).to.exist;\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Valid CPF\", function () {\r",
+									"  pm.expect(pm.response.json().cpf).to.exist;\r",
+									"})\r",
 									"\r",
 									""
 								],
@@ -1659,7 +1690,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().alert);\r",
+									"    pm.expect(pm.response.json().alert[0]).to.eql(\"Esse usuário não existe em nossa base de dados.\");\r",
 									"})\r",
 									"\r",
 									""
@@ -1711,9 +1742,9 @@
 									"    pm.response.to.have.status(403);\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().errors);\r",
-									"})\r",
+									"pm.test(\"Verify msg error\"), () => {\r",
+									"    pm.expect(pm.response.json().errors).to.equal(pm.globals.get(\"MsgFailedToken\"))\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
@@ -1768,11 +1799,11 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Id\", function () {\r",
-									"  pm.expect(pm.response.json().updatedUser._id);\r",
+									"  pm.expect(pm.response.json().updatedUser._id).to.exist;\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Valid FullName\", function () {\r",
-									"  pm.expect(pm.response.json().updatedUser.mail).to.eql(pm.globals.get(\"MailUserEdit\"));;\r",
+									"  pm.expect(pm.response.json().updatedUser.fullName).to.eql(pm.globals.get(\"FullName\"));;\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Mail User Edit\", function () {\r",
@@ -1849,7 +1880,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().error);\r",
+									"    pm.expect(pm.response.json().error[0]).to.eql(\"Informe o nome e sobrenome com as iniciais em letra maiúscula e sem caracteres especiais.\");\r",
 									"})\r",
 									"\r",
 									"\r",
@@ -1913,7 +1944,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().error);\r",
+									"    pm.expect(pm.response.json().error[0]).to.eql(pm.globals.get(\"MsgMailRequired\"));\r",
 									"})\r",
 									"\r",
 									""
@@ -1975,7 +2006,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify msg is valid\", function () {\r",
-									"    pm.expect(pm.response.json().msg);\r",
+									"    pm.expect(pm.response.json().msg).to.eql(\"Senha atualizada com sucesso!\");\r",
 									"})\r",
 									"\r",
 									""
@@ -2156,10 +2187,9 @@
 									"    pm.response.to.have.status(403);\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().errors);\r",
-									"})\r",
-									"\r",
+									"pm.test(\"Verify msg error\"), () => {\r",
+									"    pm.expect(pm.response.json().errors).to.equal(pm.globals.get(\"MsgFailedToken\"))\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
@@ -2248,7 +2278,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify msg is valid\", function () {\r",
-									"    pm.expect(pm.response.json().msg);\r",
+									"    pm.expect(pm.response.json().msg).to.eql(\"Status do usuario atualizado com sucesso para status false.\");\r",
 									"})\r",
 									"\r",
 									""
@@ -2260,8 +2290,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"packages": {},
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -2318,7 +2351,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify msg is valid\", function () {\r",
-									"    pm.expect(pm.response.json().msg);\r",
+									"    pm.expect(pm.response.json().msg).to.eql(\"Status do usuario atualizado com sucesso para status true.\");\r",
 									"})\r",
 									"\r",
 									""
@@ -2389,6 +2422,8 @@
 									"pm.test(\"Status code is 404\", function () {\r",
 									"    pm.response.to.have.status(404);\r",
 									"})\r",
+									"\r",
+									"\r",
 									""
 								],
 								"type": "text/javascript",
@@ -2448,10 +2483,9 @@
 									"    pm.response.to.have.status(403);\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().errors);\r",
-									"})\r",
-									"\r",
+									"pm.test(\"Verify msg error\"), () => {\r",
+									"    pm.expect(pm.response.json().errors).to.equal(pm.globals.get(\"MsgFailedToken\"))\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
@@ -2512,7 +2546,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Msg is true\", function () {\r",
-									"  pm.expect(pm.response.json().msg);\r",
+									"  pm.expect(pm.response.json().msg).to.eql(\"Usuário deletado com sucesso!.\");\r",
 									"})"
 								],
 								"type": "text/javascript",
@@ -2562,9 +2596,9 @@
 									"    pm.response.to.have.status(403)\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Verify msg error\", function () {\r",
-									"  pm.expect(pm.response.json().errors);\r",
-									"})"
+									"pm.test(\"Verify msg error\"), () => {\r",
+									"    pm.expect(pm.response.json().errors).to.equal(pm.globals.get(\"MsgFailedToken\"))\r",
+									"}"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -2613,7 +2647,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Msg is true\", function () {\r",
-									"  pm.expect(pm.response.json().alert);\r",
+									"  pm.expect(pm.response.json().alert[0]).to.eql(\"Esse usuário não existe em nossa base de dados.\");\r",
 									"})"
 								],
 								"type": "text/javascript",
@@ -2674,6 +2708,11 @@
 									"    pm.expect(\"Olá Qa-Coders-SYSADMIN, autenticação autorizada com sucesso!\").to.equal(pm.response.json().msg)\r",
 									"})\r",
 									"\r",
+									"pm.test(\"Valid Id User\", function () {\r",
+									"  pm.expect(pm.response.json().user._id).to.exist;\r",
+									"})\r",
+									"\r",
+									"\r",
 									"pm.test(\"Verify token is valid\", () => {\r",
 									"    pm.expect(pm.response.json().token).to.exist;\r",
 									"})\r",
@@ -2689,8 +2728,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"packages": {},
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -2733,7 +2775,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Id User\", function () {\r",
-									"  pm.expect(pm.response.json().user._id);\r",
+									"  pm.expect(pm.response.json().user._id).to.exist;\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Valid FullName\", function () {\r",
@@ -2868,7 +2910,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Id User\", function () {\r",
-									"  pm.expect(pm.response.json().user._id);\r",
+									"  pm.expect(pm.response.json().user._id).to.exist;\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Valid FullName\", function () {\r",
@@ -3000,6 +3042,10 @@
 									"    pm.response.to.have.status(200)\r",
 									"})\r",
 									"\r",
+									"pm.test(\"Valid Id User\", function () {\r",
+									"  pm.expect(pm.response.json().user._id).to.exist;\r",
+									"})\r",
+									"\r",
 									"pm.test(\"Verify token is valid\", () => {\r",
 									"    pm.expect(pm.response.json().token).to.exist;\r",
 									"})\r",
@@ -3052,7 +3098,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Id\", function () {\r",
-									"  pm.expect(pm.response.json().newCompany_id);\r",
+									"  pm.expect(pm.response.json().newCompany._id).to.exist;\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Corporate name\", function () {\r",
@@ -3259,7 +3305,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Msg error is true\", function () {\r",
-									"  pm.expect(pm.response.json().alert);\r",
+									"  pm.expect(pm.response.json().alert[0]).to.eql(\"Essa companhia já está cadastrada. Verifique o nome, CNPJ e a razão social da companhia.\");\r",
 									"})\r",
 									"\r",
 									""
@@ -3330,7 +3376,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Msg error is true\", function () {\r",
-									"  pm.expect(pm.response.json().error);\r",
+									"  pm.expect(pm.response.json().error[0]).to.eql(\"O campo 'Nome da empresa' da empresa é obrigatório\");\r",
 									"})\r",
 									"\r",
 									""
@@ -3516,7 +3562,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Msg error is true\", function () {\r",
-									"  pm.expect(pm.response.json().error);\r",
+									"  pm.expect(pm.response.json().error[0]).to.eql(\"O campo 'CNPJ' da empresa é obrigatório.\");\r",
 									"})\r",
 									"\r",
 									""
@@ -3702,7 +3748,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Msg error is true\", function () {\r",
-									"  pm.expect(pm.response.json().error);\r",
+									"  pm.expect(pm.response.json().error[0]).to.eql(\"O campo 'Email' é obrigatório.\");\r",
 									"})\r",
 									"\r",
 									""
@@ -3888,7 +3934,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify count is true\", function () {\r",
-									"    pm.expect(pm.response.json().count);\r",
+									"    pm.expect(pm.response.json().count).to.exist;\r",
 									"})\r",
 									""
 								],
@@ -3939,9 +3985,9 @@
 									"    pm.response.to.have.status(403);\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().errors);\r",
-									"})\r",
+									"pm.test(\"Verify msg error\"), () => {\r",
+									"    pm.expect(pm.response.json().errors).to.equal(pm.globals.get(\"MsgFailedToken\"))\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
@@ -3991,10 +4037,9 @@
 									"    pm.response.to.have.status(403);\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().errors);\r",
-									"})\r",
-									""
+									"pm.test(\"Verify msg error\"), () => {\r",
+									"    pm.expect(pm.response.json().errors).to.equal(pm.globals.get(\"MsgFailedToken\"))\r",
+									"}"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -4044,16 +4089,21 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Id\", function () {\r",
-									"  pm.expect(pm.response.json()._id);\r",
+									"  pm.expect(pm.response.json()[0]._id).to.exist;\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Corporate name\", function () {\r",
-									"  pm.expect(pm.response.json().corporateName);\r",
+									"  pm.expect(pm.response.json()[0].corporateName).to.exist;\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Register Company\", function () {\r",
-									"  pm.expect(pm.response.json().registerCompany);\r",
+									"  pm.expect(pm.response.json()[0].registerCompany).to.exist;\r",
 									"})\r",
+									"\r",
+									"pm.test(\"Valid Address\", function () {\r",
+									"  pm.expect(pm.response.json()[0].address).to.exist;\r",
+									"})\r",
+									"\r",
 									""
 								],
 								"type": "text/javascript",
@@ -4102,10 +4152,9 @@
 									"    pm.response.to.have.status(403);\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Msg error is true\", function () {\r",
-									"  pm.expect(pm.response.json().errors);\r",
-									"})\r",
-									"\r",
+									"pm.test(\"Verify msg error\"), () => {\r",
+									"    pm.expect(pm.response.json().errors).to.equal(pm.globals.get(\"MsgFailedToken\"))\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
@@ -4154,10 +4203,9 @@
 									"    pm.response.to.have.status(403);\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Msg error is true\", function () {\r",
-									"  pm.expect(pm.response.json().errors);\r",
-									"})\r",
-									"\r",
+									"pm.test(\"Verify msg error\"), () => {\r",
+									"    pm.expect(pm.response.json().errors).to.equal(pm.globals.get(\"MsgFailedToken\"))\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
@@ -4202,10 +4250,35 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"/*pm.test(\"Status code is 200\", function () {\r",
+									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
-									"})*/\r",
+									"})\r",
 									"\r",
+									"pm.test(\"Valid Id\", function () {\r",
+									"   pm.expect(pm.response.json()).to.have.property(\"_id\");\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Valid Corporate Name\", function () {\r",
+									"   pm.expect(pm.response.json()).to.have.property(\"corporateName\");\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Valid Register Company\", function () {\r",
+									"   pm.expect(pm.response.json()).to.have.property(\"registerCompany\");\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Valid Mail\", function () {\r",
+									"   pm.expect(pm.response.json()).to.have.property(\"mail\");\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
 									""
 								],
 								"type": "text/javascript",
@@ -4256,7 +4329,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().alert);\r",
+									"    pm.expect(pm.response.json().alert[0]).to.eql(\"Essa companhia não existe em nosso sistema.\");\r",
 									"})\r",
 									""
 								],
@@ -4307,10 +4380,9 @@
 									"    pm.response.to.have.status(403);\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Verify msg errors\", function () {\r",
-									"    pm.expect(pm.response.json().errors);\r",
-									"})\r",
-									""
+									"pm.test(\"Verify msg error\"), () => {\r",
+									"    pm.expect(pm.response.json().errors).to.equal(pm.globals.get(\"MsgFailedToken\"))\r",
+									"}"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -4364,7 +4436,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Id\", function () {\r",
-									"  pm.expect(pm.response.json().updatedCompany._id);\r",
+									"  pm.expect(pm.response.json().updatedCompany._id).to.exist;\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Corporate name\", function () {\r",
@@ -4475,10 +4547,9 @@
 									"    pm.response.to.have.status(403)\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Verify msg errors\", () => {\r",
-									"    pm.expect(pm.response.json().errors).to.exist;\r",
-									"});\r",
-									"\r",
+									"pm.test(\"Verify msg error\"), () => {\r",
+									"    pm.expect(pm.response.json().errors).to.equal(pm.globals.get(\"MsgFailedToken\"))\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
@@ -4562,7 +4633,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().error);\r",
+									"    pm.expect(pm.response.json().error[0]).to.eql(\"O campo 'CNPJ' da empresa é obrigatório.\");\r",
 									"})\r",
 									"\r",
 									""
@@ -4634,7 +4705,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().error);\r",
+									"    pm.expect(pm.response.json().error[0]).to.eql(\"O campo 'Telefone' é obrigatório.\");\r",
 									"})\r",
 									""
 								],
@@ -4705,7 +4776,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().error);\r",
+									"    pm.expect(pm.response.json().error[0]).to.eql(\"O campo 'Email' é obrigatório.\");\r",
 									"})\r",
 									"\r",
 									""
@@ -4766,11 +4837,29 @@
 									"    pm.response.to.have.status(400)\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().error);\r",
+									"pm.test(\"Verify msg error Corporate Name\", function () {\r",
+									"    pm.expect(pm.response.json().error[0]).to.eql( \"O campo 'Nome da empresa' da empresa é obrigatório\");\r",
 									"})\r",
 									"\r",
-									""
+									"pm.test(\"Verify msg error Mail\", function () {\r",
+									"    pm.expect(pm.response.json().error[1]).to.eql( \"O campo 'Email' é obrigatório.\");\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Verify msg error CNPJ\", function () {\r",
+									"    pm.expect(pm.response.json().error[2]).to.eql( \"O campo 'CNPJ' da empresa é obrigatório.\");\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Verify msg error Responsible Contact\", function () {\r",
+									"    pm.expect(pm.response.json().error[3]).to.eql( \"O campo 'Contado do Responsável' é obrigatório.\");\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Verify msg error Phone\", function () {\r",
+									"    pm.expect(pm.response.json().error[4]).to.eql(\"O campo 'Telefone' é obrigatório.\");\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Verify msg error Description\", function () {\r",
+									"    pm.expect(pm.response.json().error[5]).to.eql(\"O campo 'Descrição' é obrigatório.\");\r",
+									"})"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -4833,11 +4922,11 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Id\", function () {\r",
-									"  pm.expect(pm.response.json().updateCompany_id);\r",
+									"  pm.expect(pm.response.json().updateCompany._id).to.exist;\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Corporate Address\", function () {\r",
-									"  pm.expect(pm.response.json().updateCompany.address);\r",
+									"  pm.expect(pm.response.json().updateCompany.address).to.exist;\r",
 									"})\r",
 									"\r",
 									""
@@ -4973,7 +5062,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().error);\r",
+									"    pm.expect(pm.response.json().error[0]).to.eql(\"O campo 'CEP' é obrigatório.\");\r",
 									"})\r",
 									""
 								],
@@ -5108,7 +5197,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().error);\r",
+									"    pm.expect(pm.response.json().error[0]).to.eql(\"O campo 'logradouro' é obrigatório.\");\r",
 									"})\r",
 									""
 								],
@@ -5247,16 +5336,16 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Id\", function () {\r",
-									"  pm.expect(pm.response.json().updateCompany._id);\r",
+									"  pm.expect(pm.response.json().updateCompany._id).to.exist;\r",
 									"})\r",
 									"\r",
 									"\r",
 									"pm.test(\"Valid CorporateName\", function () {\r",
-									"  pm.expect(pm.response.json().updateCompany.corporateName);\r",
+									"  pm.expect(pm.response.json().updateCompany.corporateName).to.exist;\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Register Company\", function () {\r",
-									"  pm.expect(pm.response.json().updateCompany.registerCompany);\r",
+									"  pm.expect(pm.response.json().updateCompany.registerCompany).to.exist;\r",
 									"})\r",
 									""
 								],
@@ -5322,16 +5411,16 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Id\", function () {\r",
-									"  pm.expect(pm.response.json().updateCompany._id);\r",
+									"  pm.expect(pm.response.json().updateCompany._id).to.exist;\r",
 									"})\r",
 									"\r",
 									"\r",
 									"pm.test(\"Valid CorporateName\", function () {\r",
-									"  pm.expect(pm.response.json().updateCompany.corporateName);\r",
+									"  pm.expect(pm.response.json().updateCompany.corporateName).to.exist;\r",
 									"})\r",
 									"\r",
 									"pm.test(\"Valid Register Company\", function () {\r",
-									"  pm.expect(pm.response.json().updateCompany.registerCompany);\r",
+									"  pm.expect(pm.response.json().updateCompany.registerCompany).to.exist;\r",
 									"})\r",
 									""
 								],
@@ -5393,7 +5482,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().error);\r",
+									"    pm.expect(pm.response.json().msg).to.eql(\"Essa companhia não existem em nossa base de dados.\");\r",
 									"})\r",
 									"\r",
 									""
@@ -5455,10 +5544,9 @@
 									"    pm.response.to.have.status(403);\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Verify msg errors\", function () {\r",
-									"    pm.expect(pm.response.json().errors);\r",
-									"})\r",
-									"\r",
+									"pm.test(\"Verify msg error\"), () => {\r",
+									"    pm.expect(pm.response.json().errors).to.equal(pm.globals.get(\"MsgFailedToken\"))\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
@@ -5519,7 +5607,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify msg is valid\", function () {\r",
-									"    pm.expect(pm.response.json().msg);\r",
+									"    pm.expect(pm.response.json().msg).to.eql(\"Companhia deletado com sucesso.\");\r",
 									"})\r",
 									"\r",
 									""
@@ -5531,8 +5619,11 @@
 						{
 							"listen": "prerequest",
 							"script": {
-								"packages": {},
-								"type": "text/javascript"
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -5579,7 +5670,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Verify msg is valid\", function () {\r",
-									"    pm.expect(pm.response.json().msg);\r",
+									"    pm.expect(pm.response.json().msg).to.eql(\"Essa companhia não existem em nossa base de dados.\");\r",
 									"})\r",
 									"\r",
 									""
@@ -5631,10 +5722,9 @@
 									"    pm.response.to.have.status(403);\r",
 									"})\r",
 									"\r",
-									"pm.test(\"Verify msg error\", function () {\r",
-									"    pm.expect(pm.response.json().errors);\r",
-									"})\r",
-									"\r",
+									"pm.test(\"Verify msg error\"), () => {\r",
+									"    pm.expect(pm.response.json().errors).to.equal(pm.globals.get(\"MsgFailedToken\"))\r",
+									"}\r",
 									""
 								],
 								"type": "text/javascript",
